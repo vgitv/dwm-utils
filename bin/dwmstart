@@ -12,7 +12,7 @@ fi
 
 # fond d'écran
 if [[ -f "$HOME/.local/share/wallpaper/wall" ]]; then
-    feh --bg-fill /usr/local/share/wallpaper/wall
+    feh --bg-fill "$HOME/.local/share/wallpaper/wall"
 elif [[ -f /usr/local/share/dwm/dwm_wallpaper.jpg ]]; then
     feh --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
 fi
