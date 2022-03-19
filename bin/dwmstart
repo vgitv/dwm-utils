@@ -27,7 +27,7 @@ dwmblocks &
 dunst &
 
 if command -v thunar > /dev/null 2>&1; then
-    thunar --daemon
+    thunar --daemon &
 fi
 
 # start window manager
