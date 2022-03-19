@@ -4,11 +4,11 @@ set -euo pipefail
 flag="$1"
 
 case "${flag}" in
-    '-d'|'--down')
+    '-l'|'--lower')
         amixer -q set Master 5%-
         pkill -RTMIN+3 dwmblocks
         ;;
-    '-u'|'--up')
+    '-r'|'--raise')
         amixer -q set Master 5%+
         pkill -RTMIN+3 dwmblocks
         ;;
@@ -16,7 +16,7 @@ case "${flag}" in
         amixer -q -D pulse set Master toggle
         pkill -RTMIN+3 dwmblocks
         ;;
-    '-l'|'--list')
+    '-d'|'--display')
         notify-send "$(amixer get Master)"
         ;;
     *)
