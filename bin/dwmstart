@@ -12,19 +12,23 @@ fi
 
 # fond d'écran
 if [[ -f "$HOME/.local/share/wallpaper/wall" ]]; then
-    feh --bg-fill "$HOME/.local/share/wallpaper/wall"
+    feh --no-fehbg --bg-fill "$HOME/.local/share/wallpaper/wall"
 elif [[ -f /usr/local/share/dwm/dwm_wallpaper.jpg ]]; then
-    feh --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
+    feh --no-fehbg --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
 fi
 
 # filtre lumière bleue
 # redshift -c /usr/local/etc/redshift.conf &
 
+# status bar
+dwmblocks &
+
 # daemon de notification
 dunst &
 
-# status bar
-dwmblocks &
+if command -v thunar > /dev/null 2>&1; then
+    thunar --daemon
+fi
 
 # start window manager
 exec dwm
