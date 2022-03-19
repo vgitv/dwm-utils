@@ -4,19 +4,20 @@ set -euo pipefail
 flag="$1"
 
 case "${flag}" in
-    '-l'|'--lower')
+    '-d'|'--down')
         amixer -q set Master 5%-
         pkill -RTMIN+3 dwmblocks
-        # currentVolume="$(amixer get Master | grep -oE "[0-9]*%" | sed -E 's/.%//g')"
-        # amixer sset 'Master' "$((${currentVolume} - 1))0%"
         ;;
-    '-r'|'--raise')
+    '-u'|'--up')
         amixer -q set Master 5%+
         pkill -RTMIN+3 dwmblocks
         ;;
     '-t'|'--toggle')
         amixer -q -D pulse set Master toggle
         pkill -RTMIN+3 dwmblocks
+        ;;
+    '-l'|'--list')
+        notify-send "$(amixer get Master)"
         ;;
     *)
         echo 'Invalid option'

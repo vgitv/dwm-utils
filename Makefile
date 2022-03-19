@@ -14,3 +14,7 @@ print:
 
 /usr/share/xsessions/dwm.desktop: desktop/dwm.desktop
 	cp $^ $@ && chmod 644 $@
+
+.PHONY: clean
+clean:
+	rm $(targetbin)
