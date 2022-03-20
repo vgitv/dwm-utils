@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+pkill -RTMIN+5 dwmblocks
+pkill -RTMIN+1 dwmblocks
+pkill -RTMIN+2 dwmblocks
