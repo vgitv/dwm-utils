@@ -18,10 +18,10 @@ case "${choice}" in
         sudo pm-hibernate
         ;;
     's')
-        sudo shutdown -P now
+        shutdown -P now
         ;;
     'r')
-        sudo shutdown -r now
+        shutdown -r now
         ;;
     *)
         echo 'Invalid choice'
