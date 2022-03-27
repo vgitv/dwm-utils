@@ -6,8 +6,11 @@ if command -v numlockx > /dev/null 2>&1; then
 fi
 
 # setup multiple screen
-if [[ $(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]') -eq 2 ]]; then
-    xrandr --output "$(xrandr --listmonitors | awk '/^ 1:/ { print $4 }')" --auto --left-of LVDS1
+nmonitors="$(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]')"
+if [[ ${nmonitors} -eq 2 ]]; then
+    laptopMonitor="$(xrandr --listmonitors | awk '/^ 0:/ { print $4 }')"
+    externMonitor="$(xrandr --listmonitors | awk '/^ 1:/ { print $4 }')"
+    xrandr --output "${externMonitor}" --auto --left-of "${laptopMonitor}" --primary
 fi
 
 # fond d'écran
