@@ -7,14 +7,20 @@ case "${flag}" in
     '-l'|'--lower')
         amixer -q set Master 5%-
         pkill -RTMIN+3 dwmblocks
+        current="$(amixer get Master | grep -oE '[0-9]+%' | head -n 1)"
+        notify-send -t 1000 "${current}" -h string:x-canonical-private-synchronous:my-notification
         ;;
     '-r'|'--raise')
         amixer -q set Master 5%+
         pkill -RTMIN+3 dwmblocks
+        current="$(amixer get Master | grep -oE '[0-9]+%' | head -n 1)"
+        notify-send -t 1000 "${current}" -h string:x-canonical-private-synchronous:my-notification
         ;;
     '-t'|'--toggle')
         amixer -q -D pulse set Master toggle
         pkill -RTMIN+3 dwmblocks
+        current="$(amixer get Master | grep -oE '(\[on\]|\[off\])' | head -n 1)"
+        notify-send -t 1000 "${current}" -h string:x-canonical-private-synchronous:my-notification
         ;;
     '-d'|'--display')
         notify-send "$(amixer get Master)"
