@@ -1,0 +1,4 @@
+#!/bin/bash
+set -euo pipefail
+
+passmenu | notify-pipe -t 3000 'Passmenu'
