@@ -8,19 +8,19 @@ set -euo pipefail
 choice="$(echo -e 'lock\nexit-dwm\nhibernate\nshutdown\nreboot' | dmenu -b -p 'System')"
 
 case "${choice}" in
-    'l')
+    'lock')
         notify-send 'Not implemented yet'
         ;;
-    'e')
+    'exit-dwm')
         notify-send 'Not implemented yet'
         ;;
-    'h')
+    'hibernate')
         sudo pm-hibernate
         ;;
-    's')
+    'shutdown')
         shutdown -P now
         ;;
-    'r')
+    'reboot')
         shutdown -r now
         ;;
     *)
