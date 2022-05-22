@@ -5,7 +5,7 @@ set -euo pipefail
 # - hibernate
 # - pm-utils
 
-choice="$(echo -e 'l\ne\nh\ns\nr' | dmenu -b -p '(l) lock, (e) exit dwm, (h) hibernate, (s) shutdown, (r) reboot')"
+choice="$(echo -e 'lock\nexit-dwm\nhibernate\nshutdown\nreboot' | dmenu -b -p 'System')"
 
 case "${choice}" in
     'l')
