@@ -1,10 +1,19 @@
 #!/bin/bash
 
+# global variables
+DWMSTART_LOG="${XDG_STATE_HOME:-$HOME/.local/state}/dwmstart.log"
+
+# functions
 function try {
     if command -v "$1" > /dev/null 2>&1; then
         "$@"
+    else
+        echo "WARNING - $1 not found, skipping" >> "$DWMSTART_LOG"
     fi
 }
+
+# clean log
+rm -f "$DWMSTART_LOG"
 
 # setup multiple screen
 nmonitors="$(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]')"
@@ -17,16 +26,16 @@ fi
 
 # wallpaper
 if [[ -f "$HOME/.local/share/wallpaper/wall" ]]; then
-    feh --no-fehbg --bg-fill "$HOME/.local/share/wallpaper/wall"
+    try feh --no-fehbg --bg-fill "$HOME/.local/share/wallpaper/wall"
 elif [[ -f /usr/local/share/dwm/dwm_wallpaper.jpg ]]; then
-    feh --no-fehbg --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
+    try feh --no-fehbg --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
 fi
 
 # daemon de notification
 try dunst &
 
 # status bar
-dwmblocks &
+try dwmblocks &
 
 # num lock
 try numlockx on
