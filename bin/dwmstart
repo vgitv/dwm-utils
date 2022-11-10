@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# numlock
-if command -v numlockx > /dev/null 2>&1; then
-    numlockx on
-fi
+function try {
+    if command -v "$1" > /dev/null 2>&1; then
+        "$@"
+    fi
+}
 
 # setup multiple screen
 nmonitors="$(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]')"
@@ -14,33 +15,36 @@ if [[ ${nmonitors} -eq 2 ]]; then
     xrandr --output "${laptopMonitor}" --off
 fi
 
-# fond d'écran
+# wallpaper
 if [[ -f "$HOME/.local/share/wallpaper/wall" ]]; then
     feh --no-fehbg --bg-fill "$HOME/.local/share/wallpaper/wall"
 elif [[ -f /usr/local/share/dwm/dwm_wallpaper.jpg ]]; then
     feh --no-fehbg --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
 fi
 
-# set x keyboard map to fr for xdotool purpose
-setxkbmap fr
-
-# filtre lumière bleue
-# redshift -c /usr/local/etc/redshift.conf &
+# daemon de notification
+try dunst &
 
 # status bar
 dwmblocks &
 
-# daemon de notification
-dunst &
+# num lock
+try numlockx on
+
+# set x keyboard map to fr for xdotool purpose
+try setxkbmap fr
+
+# blue light filter
+# try redshift -c /usr/local/etc/redshift.conf &
 
 # clipboard manager
-if command -v xfce4-clipman > /dev/null 2>&1; then
-    xfce4-clipman &
-fi
+# if command -v xfce4-clipman > /dev/null 2>&1; then
+#     xfce4-clipman &
+# fi
+try copyq &
 
-if command -v thunar > /dev/null 2>&1; then
-    thunar --daemon &
-fi
+# file explorer daemon
+try thunar --daemon &
 
 # start window manager
 exec dwm
