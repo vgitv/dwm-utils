@@ -38,9 +38,6 @@ try setxkbmap fr
 # try redshift -c /usr/local/etc/redshift.conf &
 
 # clipboard manager
-# if command -v xfce4-clipman > /dev/null 2>&1; then
-#     xfce4-clipman &
-# fi
 try copyq &
 
 # file explorer daemon
