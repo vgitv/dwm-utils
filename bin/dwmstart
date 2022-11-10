@@ -21,6 +21,9 @@ elif [[ -f /usr/local/share/dwm/dwm_wallpaper.jpg ]]; then
     feh --no-fehbg --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
 fi
 
+# set x keyboard map to fr for xdotool purpose
+setxkbmap fr
+
 # filtre lumière bleue
 # redshift -c /usr/local/etc/redshift.conf &
 
