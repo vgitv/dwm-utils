@@ -1,7 +1,13 @@
+desktop := /usr/share/xsessions/dwm.desktop
+directories := /usr/local/share/dwm
+
 sourcebin := $(wildcard bin/*)
 targetbin := $(subst bin/,/usr/local/bin/,$(sourcebin))
 
-install: $(targetbin) /usr/share/xsessions/dwm.desktop /usr/local/share/dwm/dwm.png
+sourcepng := $(wildcard wallpaper/*)
+targetpng := $(subst wallpaper/,/usr/local/share/dwm/,$(sourcepng))
+
+install: $(desktop) $(directories) $(targetbin) $(targetpng)
 
 print:
 	@echo 'sourcebin:'
@@ -15,8 +21,8 @@ print:
 /usr/share/xsessions/dwm.desktop: desktop/dwm.desktop
 	cp $^ $@ && chmod 644 $@
 
-/usr/local/share/dwm/dwm.png: /usr/local/share/dwm wallpaper/dwm.png
-	cp wallpaper/dwm.png $@ && chmod 644 $@
+/usr/local/share/dwm/%: wallpaper/%
+	cp $^ $@ && chmod 644 $@
 
 /usr/local/share/dwm:
 	mkdir $@
