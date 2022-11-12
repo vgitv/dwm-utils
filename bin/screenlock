@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+
+if command -v i3lock > /dev/null 2>&1; then
+    if [[ -f "$HOME/.local/share/wallpaper/screenlock.png" ]]; then
+        # user custom wallpaper (can be a symlink)
+        png="$HOME/.local/share/wallpaper/screenlock.png"
+    else
+        # default wallpaper
+        png='/usr/local/share/dwm/dwm.png'
+    fi
+else
+    notify-send -u critical 'Lock - ERROR' 'i3lock not found, please install i3lock package'
+fi
+
+i3lock -p default -e -f -i "$png"
