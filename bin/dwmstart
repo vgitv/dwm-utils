@@ -4,7 +4,9 @@
 # numlockx on &
 
 # setup multiple screen
-[[ $(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]') -eq 2 ]] && xrandr --output "$(xrandr --listmonitors | awk '/^ 1:/ { print $4 }')" --auto --left-of LVDS1 &
+if [[ $(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]') -eq 2 ]]; then
+    xrandr --output "$(xrandr --listmonitors | awk '/^ 1:/ { print $4 }')" --auto --left-of LVDS1 &
+fi
 
 # fond d'écran
 # feh --bg-fill /usr/local/share/wallpaper/wall &
@@ -16,7 +18,7 @@
 dunst &
 
 # status bar
-# dwmblocks &
+dwmblocks &
 
 # start window manager
 exec dwm
