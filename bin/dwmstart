@@ -30,6 +30,11 @@ dwmblocks &
 # daemon de notification
 dunst &
 
+# clipboard manager
+if command -v xfce4-clipman > /dev/null 2>&1; then
+    xfce4-clipman &
+fi
+
 if command -v thunar > /dev/null 2>&1; then
     thunar --daemon &
 fi
