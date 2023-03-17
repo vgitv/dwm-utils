@@ -26,11 +26,14 @@ fi
 
 # wallpaper
 if [[ -f "$HOME/.local/share/wallpaper/wall" ]]; then
+    # regular wallpaper (wall can be a symlink)
     try feh --no-fehbg --bg-fill "$HOME/.local/share/wallpaper/wall"
 elif [[ -d "$HOME/Images/wallpaper/1920x1080" ]]; then
+    # random wallpaper
     try feh --no-fehbg --bg-fill "$(find "$HOME/Images/wallpaper/1920x1080" -type f | shuf -n 1)"
-elif [[ -f /usr/local/share/dwm/dwm_wallpaper.jpg ]]; then
-    try feh --no-fehbg --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
+else
+    # default wallpaper
+    try feh --no-fehbg --bg-center /usr/local/share/dwm/dwm.png
 fi
 
 # daemon de notification
