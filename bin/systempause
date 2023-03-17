@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+# paquets requis :
+# - hibernate
+# - pm-utils
+
+choice="$(echo -e 'l\ne\nh\ns\nr' | dmenu -b -p '(l) lock, (e) exit dwm, (h) hibernate, (s) shutdown, (r) reboot')"
+
+case "${choice}" in
+    'l')
+        notify-send 'Not implemented yet'
+        ;;
+    'e')
+        notify-send 'Not implemented yet'
+        ;;
+    'h')
+        sudo pm-hibernate
+        ;;
+    's')
+        sudo shutdown -P now
+        ;;
+    'r')
+        sudo shutdown -r now
+        ;;
+    *)
+        echo 'Invalid choice'
+        ;;
+esac
