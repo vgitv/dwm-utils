@@ -25,12 +25,15 @@ if [[ ${nmonitors} -eq 2 ]]; then
 fi
 
 # wallpaper
-if [[ -f "$HOME/.local/share/wallpaper/wall" ]]; then
+mainwall="$HOME/.local/share/wallpaper/wall"
+walldir="$HOME/.local/share/wallpaper/walldir"
+
+if [[ -f "$mainwall" ]]; then
     # regular wallpaper (wall can be a symlink)
-    try feh --no-fehbg --bg-fill "$HOME/.local/share/wallpaper/wall"
-elif [[ -d "$HOME/Images/wallpaper/1920x1080" ]]; then
-    # random wallpaper
-    try feh --no-fehbg --bg-fill "$(find "$HOME/Images/wallpaper/1920x1080" -type f | shuf -n 1)"
+    try feh --no-fehbg --bg-fill "$mainwall"
+elif [[ -d "$walldir" ]]; then
+    # random wallpaper (walldir can be a symlink)
+    try feh --no-fehbg --bg-fill "$(find -L "$walldir" -type f | shuf -n 1)"
 else
     # default wallpaper
     try feh --no-fehbg --bg-fill /usr/local/share/dwm/dwm.png
