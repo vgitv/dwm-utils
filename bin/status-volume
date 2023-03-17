@@ -1,7 +1,7 @@
 #!/bin/bash
 if amixer get Master | grep '\[on\]$' > /dev/null 2> /dev/null ; then
     prefix='🔉'
-    volume="$(amixer get Master | grep -oE "[0-9]*%")"
+    volume="$(amixer get Master | grep -oE "[0-9]*%" | head -n 1)"
 else
     prefix='🔇'
     volume='off'
