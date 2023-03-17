@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# numlock
+# numlockx on &
+
+# setup multiple screen
+[[ $(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]') -eq 2 ]] && xrandr --output "$(xrandr --listmonitors | awk '/^ 1:/ { print $4 }')" --auto --left-of LVDS1 &
+
+# fond d'écran
+# feh --bg-fill /usr/local/share/wallpaper/wall &
+
+# filtre lumière bleue
+# redshift -c /usr/local/etc/redshift.conf &
+
+# daemon de notification
+dunst &
+
+# status bar
+# dwmblocks &
+
+# start window manager
+exec dwm
