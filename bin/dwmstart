@@ -1,15 +1,21 @@
 #!/bin/bash
 
 # numlock
-# numlockx on &
+if command -v numlockx > /dev/null 2>&1; then
+    numlockx on
+fi
 
 # setup multiple screen
 if [[ $(xrandr --listmonitors | head -n 1 | grep -oE '[0-9]') -eq 2 ]]; then
-    xrandr --output "$(xrandr --listmonitors | awk '/^ 1:/ { print $4 }')" --auto --left-of LVDS1 &
+    xrandr --output "$(xrandr --listmonitors | awk '/^ 1:/ { print $4 }')" --auto --left-of LVDS1
 fi
 
 # fond d'écran
-# feh --bg-fill /usr/local/share/wallpaper/wall &
+if [[ -f "$HOME/.local/share/wallpaper/wall" ]]; then
+    feh --bg-fill /usr/local/share/wallpaper/wall
+elif [[ -f /usr/local/share/dwm/dwm_wallpaper.jpg ]]; then
+    feh --bg-fill /usr/local/share/dwm/dwm_wallpaper.jpg
+fi
 
 # filtre lumière bleue
 # redshift -c /usr/local/etc/redshift.conf &
