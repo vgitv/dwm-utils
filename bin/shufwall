@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
+wallpaperDir="${1:-$HOME/Images/wallpaper/1920x1080}"
+
+feh --no-fehbg --bg-fill "$(find "${wallpaperDir}" -type f | shuf -n 1)"
