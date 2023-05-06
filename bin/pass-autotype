@@ -16,9 +16,32 @@ while read -r line; do
     fi
 done < "$config"
 
-password=$(pass "$passid")
-if xdotool type "$user"$'\t'"$password"; then
-    unset password
-else
-    unset password
-fi
+choices='1 - type username <TAB> password <ENTER>
+2 - type username
+3 - type password <ENTER>
+4 - copy username
+5 - copy password'
+choice="$(echo "$choices" | dmenu -p "$passid" -l 5)"
+
+choice="${choice:0:1}"
+
+case "$choice" in
+    1)
+        pass "$passid" | xargs -0 -I {} xdotool type "$user"$'\t'{}
+        ;;
+    2)
+        xdotool type "$user"
+        ;;
+    3)
+        pass "$passid" | xargs -0 -I {} xdotool type {}
+        ;;
+    4)
+        echo -n "$user" | xclip -sel clip
+        ;;
+    5)
+        pass -c "$passid"
+        ;;
+    *)
+        exit 1
+        ;;
+esac
