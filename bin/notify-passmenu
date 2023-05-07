@@ -3,4 +3,4 @@ set -euo pipefail
 
 # pass menu wrapper
 
-passmenu "$@" -p 'passmenu - select account' -l 50 | notify-pipe -t 3000 'Passmenu'
+passmenu "$@" -p 'passmenu - select account' -l 5 | notify-pipe -t 3000 'Passmenu'

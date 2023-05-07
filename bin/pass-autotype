@@ -20,8 +20,8 @@ while read -r line; do
 done < "$config"
 
 if [[ ${found} = no ]]; then
-    notify-send pass-autotype "No matching entry in ${config}, running passmenu instead."
-    passmenu -l 10
+    notify-send pass-autotype "No entry in ${config} matching '${windowname}', running passmenu instead."
+    notify-passmenu
     exit 0
 fi
 
