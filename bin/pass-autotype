@@ -3,7 +3,7 @@ set -euo pipefail
 
 windowname="$(xdotool getwindowname "$(xdotool getwindowfocus)")"
 
-config=~/.local/share/pass-autotype/config
+config="${PASSWORD_STORE_DIR}/.config"
 # config should be like :
 # passmenu-entry;user;regex-matching-window-name
 
