@@ -36,19 +36,19 @@ choice="${choice:0:1}"
 
 case "$choice" in
     1)
-        pass "$passid" | xargs -0 -I {} xdotool type "$user"$'\t'{}
+        pass show "$passid" | xargs -0 -I {} xdotool type "$user"$'\t'{}
         ;;
     2)
         xdotool type "$user"
         ;;
     3)
-        pass "$passid" | xargs -0 -I {} xdotool type {}
+        pass show "$passid" | xargs -0 -I {} xdotool type {}
         ;;
     4)
         echo -n "$user" | xclip -sel clip
         ;;
     5)
-        pass -c "$passid"
+        pass show -c "$passid"
         ;;
     *)
         exit 1
