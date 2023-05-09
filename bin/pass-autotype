@@ -1,6 +1,15 @@
 #!/bin/bash
 set -euo pipefail
 
+# global variables
+PROGRAM_NAME="$(basename "${BASH_SOURCE[0]}")"
+
+function notify {
+    local output
+    read -r output
+    notify-send "$PROGRAM_NAME" "$output"
+}
+
 windowname="$(xdotool getwindowname "$(xdotool getwindowfocus)")"
 
 config="${PASSWORD_STORE_DIR}/.config"
@@ -20,8 +29,8 @@ while read -r line; do
 done < "$config"
 
 if [[ ${found} = no ]]; then
-    notify-send pass-autotype "No entry in ${config} matching '${windowname}', running passmenu instead."
-    notify-passmenu
+    notify-send "$PROGRAM_NAME" "No entry in ${config} matching '${windowname}', running passmenu instead."
+    passmenu -p 'Passmenu' -l 10 | notify
     exit 0
 fi
 
@@ -30,9 +39,7 @@ choices='1 - type username <TAB> password <ENTER>
 3 - type password <ENTER>
 4 - copy username
 5 - copy password'
-choice="$(echo "$choices" | dmenu -p "$passid" -l 5)"
-
-choice="${choice:0:1}"
+choice="$(echo "$choices" | dmenu -p "$passid" -l 5 | head -c 1)"
 
 case "$choice" in
     1)
@@ -46,9 +53,10 @@ case "$choice" in
         ;;
     4)
         echo -n "$user" | xclip -sel clip
+        notify-send "$PROGRAM_NAME" "Username ${user} copied to clipboard."
         ;;
     5)
-        pass show -c "$passid"
+        pass show -c "$passid" | notify
         ;;
     *)
         exit 1
