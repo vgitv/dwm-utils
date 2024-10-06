@@ -7,6 +7,12 @@ set -euo pipefail
 
 choice="$(echo -e 'lock\nexit-dwm\nhibernate\nshutdown\nreboot' | dmenu -b -p 'System')"
 
+confirm="$(echo -e 'yes\nno' | dmenu -b -p "Confirm ${choice}?")"
+
+if [[ "$confirm" != 'yes' ]]; then
+    exit 0
+fi
+
 case "${choice}" in
     'lock')
         notify-send 'Not implemented yet'
